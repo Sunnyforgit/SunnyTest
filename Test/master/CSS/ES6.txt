@@ -1,0 +1,70 @@
+ES6 的模块自动采用严格模式，不管你有没有在模块头部加上"use strict";。
+
+let, const,  =>,  块级作用域(ES5 只有全局作用域和函数作用域 )   Class  ， 模板字符串 ${name}, 
+
+箭头函数=> :箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。
+	箭头函数取代Function.prototype.bind，不应再用 self/_this/that 绑定 this。
+
+模块化 
+	export  import (old - exports.area  require)
+扩展操作符, 对象属性简写, Promise, Set实现数组去重
+
+属性简写
+	const o = {
+	  method() {
+	    return "Hello!";
+	  }
+	};
+
+	const cart = {
+  _wheels: 4,
+
+  get wheels () {
+    return this._wheels;
+  },
+
+  set wheels (value) {
+    if (value < this._wheels) {
+      throw new Error('数值太小了！');
+    }
+    this._wheels = value;
+  }
+}
+
+super: 指向当前对象的原型对象。
+Object.setPrototypeOf() 方法设置一个指定的对象的原型 Object.setPrototypeOf(obj, prototype)
+
+Symbol 防止属性名的冲突
+	第七种数据类型(undefined、null、Boolean、String、Number、Object)
+	凡是属性名属于 Symbol 类型，就都是独一无二的，可以保证不会与其他属性名产生冲突。
+Set: 类似于数组，但是成员的值都是唯一的，没有重复的值。 const set = new Set([1, 2, 3, 4, 4]);
+	 Set 加入值的时候，不会发生类型转换
+WeakSet: 成员只能是对象，而不能是其他类型的值。
+Map: 类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键.
+	Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应
+proxy: var proxy = new Proxy(target, handler); target参数表示所要拦截的目标对象，handler参数也是一个对象，用来定制拦截行为
+
+Generator函数: 
+
+Object.setPrototypeOf
+	作为一个对象，子类（B）的原型（__proto__属性）是父类（A）；
+	作为一个构造函数，子类（B）的原型对象（prototype属性）是父类的原型对象（prototype属性）的实例
+
+Module 的语法 : export和import
+	
+	let { stat, exists, readFile } = require('fs');// CommonJS模块,  行时加载, 完全没办法在编译时做“静态优化”
+	import { stat, exists, readFile } from 'fs'; // ES6模块 ,编译时加载”或者静态加载
+
+defer与async的区别:
+	<script type="module" src="path/to/myModule.js" defer/async ></script>
+	defer: 等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行. 渲染完再执行
+	async:一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。 下载完就执行
+
+ES6 模块与 CommonJS 模块差异（.mjs  .cjs）
+	CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。 只读引用
+	CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+	         CommonJS 加载的是一个对象（即module.exports属性），该对象只有在脚本运行完才会生成。
+		 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+	.js文件的加载取决于package.json里面type字段的设置。 module-es6, 
+
+package.json文件的exports字段可以指定脚本或子目录的别名.  .代表模块主入口，优先main
